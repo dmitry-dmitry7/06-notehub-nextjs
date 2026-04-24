@@ -26,6 +26,17 @@ export const fetchNotes = async (searchText: string, page: number): Promise<Note
   return res.data;
 };
 
+export const fetchNoteById = async (noteId: string): Promise<Note> => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${myKey}`,
+    },
+  };
+
+  const res = await axios.get<Note>(`/notes/${noteId}`, config);
+  return res.data;
+};
+
 export const createNote = async (newNote: NewNote) => {
   const config = {
     headers: {

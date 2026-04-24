@@ -27,11 +27,16 @@ export default function NotesClient() {
     setPage(1);
   }, 300);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['notes', searchQuery, page],
     queryFn: () => fetchNotes(searchQuery, page),
     placeholderData: keepPreviousData,
+    refetchOnMount: false,
   });
+
+  if (error) {
+    throw error;
+  }
 
   const totalPages = data?.totalPages ?? 0;
   return (
